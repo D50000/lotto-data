@@ -1,6 +1,10 @@
 # Visual-Lottery
-- History data
+
+# Features 
+- History data,  user data. https://www.google.com/amp/s/www.softwaretestinghelp.com/best-javascript-visualization-libraries/amp/
+https://bookdown.org/gmcirco42/crime_mapping_and_analysis/lab3.html
 - Data analyze
+https://mode.com/blog/python-data-visualization-libraries/
 - Visualize dataset
 - Auto pick number
 
