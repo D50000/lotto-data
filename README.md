@@ -1,6 +1,7 @@
 # Visual-Lottery
 
 # Features 
+- Data crawler
 - History data,  user data. https://www.google.com/amp/s/www.softwaretestinghelp.com/best-javascript-visualization-libraries/amp/
 https://bookdown.org/gmcirco42/crime_mapping_and_analysis/lab3.html
 - Data analyze
