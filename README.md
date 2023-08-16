@@ -19,7 +19,7 @@
   - **Selenium (Python)：**
     Selenium is a popular automation testing tool that supports various browsers, including Chrome and Firefox.
 
-- [Archived data](http://www.aok.url.tw/yomj.htm)
+- [Archived data](http://www.aok.url.tw/yomj.htm) (.doc)
 
 # lotto-data
 
