@@ -6,7 +6,7 @@
 
 ## CSVExporter Guide
 
-- [fields]：
+- [fields]：CSV column
   response.url: 爬取的網頁的 URL。
   response.status: 網頁的 HTTP 回應狀態。
   response.remoteAddress: 網頁的遠端 IP 位址。
