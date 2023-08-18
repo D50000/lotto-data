@@ -1,13 +1,7 @@
 response.url	response.status	links.length
-https://tw.news.yahoo.com/	200	244
+https://tw.news.yahoo.com/	200	246
 https://tw.mail.yahoo.com/?.intl=tw&.lang=zh-Hant-TW	200	12
 https://tw.news.yahoo.com/topic	200	170
-https://tw.news.yahoo.com/finance	200	212
-https://tw.news.yahoo.com/most-popular	200	216
-https://tw.news.yahoo.com/politics	200	202
+https://tw.news.yahoo.com/politics	200	204
 https://tw.news.yahoo.com/weather/	200	43
-https://tw.stock.yahoo.com/	200	229
-https://tw.news.yahoo.com/archive	200	194
-https://tw.news.yahoo.com/entertainment	200	222
-https://tw.yahoo.com/	200	176
-https://tw.mail.yahoo.com/?.intl=tw&.lang=zh-Hant-TW&pspid=2144404885&activity=ybar-mail	200	12
+https://tw.news.yahoo.com/most-popular	200	205
