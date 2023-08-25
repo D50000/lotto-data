@@ -1,13 +1,7 @@
-# Headless-Chrome-Crawler
+# Puppeteer
 
-## Installation
+### TODO
 
-`yarn add headless-chrome-crawler`
-
-## CSVExporter Guide
-
-- [fields]：CSV column
-  response.url: 爬取的網頁的 URL。
-  response.status: 網頁的 HTTP 回應狀態。
-  response.remoteAddress: 網頁的遠端 IP 位址。
-  links.length: 網頁中的連結數量。
+- Complete the guideline.
+- "News crawler" example need to supporter interact with infinity scroll then crawl the element data.
+  - Comment and Doc for the example.

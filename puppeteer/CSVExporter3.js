@@ -12,6 +12,7 @@ const FILE = "./archived/result.csv";
   // Selector/Crawler.
   // Get the news photo and title.
   const newsElements = await page.evaluate(() => {
+    // "querySelectorAll" need to escape all the special characters.
     const elements = document.querySelectorAll(
       ".Pos\\(r\\).H\\(100\\%\\).C\\(\\#fff\\).Td\\(u\\)\\:h"
     );
