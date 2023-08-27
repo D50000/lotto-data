@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
 
-const FILE = "./archived/result.csv";
+const FILE = "./archived/yahooHeadlines.csv";
 
 (async () => {
   // Puppeteer will lunch Chromium or Chrome do the headless imitation.
