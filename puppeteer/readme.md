@@ -15,6 +15,11 @@ yarn add puppeteer
 pnpm i puppeteer
 ```
 
+## Example-Template
+
+- yahooNewsHeadlins_exportCSV:
+  Crawling **Yahoo News** headlines' photos and titles.Then save it into csv files.
+
 ### TODO
 
 - Complete the guideline.
