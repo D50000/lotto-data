@@ -17,8 +17,9 @@ pnpm i puppeteer
 
 ## Example-Template
 
-- yahooNewsHeadlins_exportCSV:
+- yahooNewsHeadlines_exportCSV:
   Crawling **Yahoo News** headlines' photos and titles.Then save it into csv files.
+- taiwanLottery_exportCSV:
 
 ### TODO
 
