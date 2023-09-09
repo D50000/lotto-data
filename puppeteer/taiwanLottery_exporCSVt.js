@@ -14,11 +14,14 @@ const FILE = "./tmp/taiwanLottery.csv";
   const results = [];
 
   for (let issue = startIssue; issue <= endIssue; issue++) {
-    const url = `https://www.taiwanlottery.com.tw/Lotto/Lotto649/history.aspx?Lotto649Control_history1$ddlLotto649Control_history1=0&Lotto649Control_history1$chk=radNO&Lotto649Control_history1$txtNO=${issue}`;
+    const url = `https://www.taiwanlottery.com.tw/Lotto/Lotto649/history.aspx`;
 
     await page.goto(url);
 
     const data = await page.evaluate(() => {
+      // Setup query historyNo.
+      document.getElementById("Lotto649Control_history_txtNO").value =
+        startIssue;
       const rowData = Array.from(document.querySelectorAll(".tableFull tr"))
         .slice(1)
         .map((row) => {

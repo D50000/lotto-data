@@ -20,8 +20,9 @@ pnpm i puppeteer
 - yahooNewsHeadlines_exportCSV:
   Crawling **Yahoo News** headlines' photos and titles.Then save it into csv files.
 - taiwanLottery_exportCSV:
+  TODO:
 
 ### TODO
 
 - Complete the guideline.
-- "News crawler" example need to supporter interact with infinity scroll then crawl the element data.
+- "News crawler" example need to supporter detecting the infinity scroll then crawl the element data.
