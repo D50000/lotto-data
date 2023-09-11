@@ -2,11 +2,11 @@ const puppeteer = require("puppeteer");
 const fs = require("fs");
 const csv = require("fast-csv");
 
-const FILE = "./tmp/taiwanLottery.csv";
+const FILE = "./archived/taiwanLottery.csv";
 
 (async () => {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ headless: false }); // 使用有界面的 Chrome，以便觀察操作
     const page = await browser.newPage();
 
     const startIssue = 103000001;
@@ -18,19 +18,16 @@ const FILE = "./tmp/taiwanLottery.csv";
     await page.goto(url);
     console.log("page.goto(url);");
 
-    // Wait for the input box to appear and set its value
+    // 等待元素出現並填寫表單
     await page.waitForSelector("#Lotto649Control_history_txtNO");
     await page.type("#Lotto649Control_history_txtNO", startIssue.toString());
 
-    // Wait for the submit button and click it
-    await page.waitForSelector("#Lotto649Control_history_btnSubmit");
+    // 點擊提交按鈕
     await page.click("#Lotto649Control_history_btnSubmit");
     console.log("click");
 
-    // Wait for the element you want to extract data from
-    await page.waitForSelector(
-      "#Lotto649Control_history_dlQuery_L649_DrawTerm_0"
-    );
+    // 等待一段時間，讓網頁加載完全
+    await page.waitForTimeout(5000);
 
     const data = await page.evaluate(() => {
       const test = document.getElementById(
@@ -51,9 +48,6 @@ const FILE = "./tmp/taiwanLottery.csv";
 
     csvStream.pipe(writableStream);
 
-    // results.forEach((result) => {
-    //   csvStream.write(result);
-    // });
     csvStream.write(data);
 
     csvStream.end();
