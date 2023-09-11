@@ -2,11 +2,11 @@ const puppeteer = require("puppeteer");
 const fs = require("fs");
 const csv = require("fast-csv");
 
-const FILE = "./tmp/taiwanLottery.csv";
+const FILE = "./archived/taiwanLottery.csv";
 
 (async () => {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ headless: true }); // 使用 Headless Chrome
     const page = await browser.newPage();
 
     const startIssue = 103000001;
@@ -18,21 +18,20 @@ const FILE = "./tmp/taiwanLottery.csv";
     await page.goto(url);
     console.log("page.goto(url);");
 
-    // Wait for the input box to appear and set its value
-    await page.waitForSelector("#Lotto649Control_history_txtNO");
-    await page.type("#Lotto649Control_history_txtNO", startIssue.toString());
-
-    // Wait for the submit button and click it
-    await page.waitForSelector("#Lotto649Control_history_btnSubmit");
-    await page.click("#Lotto649Control_history_btnSubmit");
-    console.log("click");
-
-    // Wait for the element you want to extract data from
-    await page.waitForSelector(
-      "#Lotto649Control_history_dlQuery_L649_DrawTerm_0"
-    );
-
     const data = await page.evaluate(() => {
+      // Setup query historyNo.
+      const queryInputBox = document.getElementById(
+        "Lotto649Control_history_txtNO"
+      );
+      queryInputBox.value = startIssue;
+
+      // Submit for query.
+      const submitBtn = document.getElementById(
+        "Lotto649Control_history_btnSubmit"
+      );
+      submitBtn.click();
+      console.log("click");
+
       const test = document.getElementById(
         "Lotto649Control_history_dlQuery_L649_DrawTerm_0"
       ).textContent;
@@ -51,9 +50,6 @@ const FILE = "./tmp/taiwanLottery.csv";
 
     csvStream.pipe(writableStream);
 
-    // results.forEach((result) => {
-    //   csvStream.write(result);
-    // });
     csvStream.write(data);
 
     csvStream.end();
