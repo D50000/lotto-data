@@ -6,7 +6,7 @@ const FILE = "./archived/taiwanLottery.csv";
 
 (async () => {
   try {
-    const browser = await puppeteer.launch({ headless: false }); // 使用有界面的 Chrome，以便觀察操作
+    const browser = await puppeteer.launch({ headless: true }); // 使用 Headless Chrome
     const page = await browser.newPage();
 
     const startIssue = 103000001;
@@ -18,18 +18,20 @@ const FILE = "./archived/taiwanLottery.csv";
     await page.goto(url);
     console.log("page.goto(url);");
 
-    // 等待元素出現並填寫表單
-    await page.waitForSelector("#Lotto649Control_history_txtNO");
-    await page.type("#Lotto649Control_history_txtNO", startIssue.toString());
-
-    // 點擊提交按鈕
-    await page.click("#Lotto649Control_history_btnSubmit");
-    console.log("click");
-
-    // 等待一段時間，讓網頁加載完全
-    await page.waitForTimeout(5000);
-
     const data = await page.evaluate(() => {
+      // Setup query historyNo.
+      const queryInputBox = document.getElementById(
+        "Lotto649Control_history_txtNO"
+      );
+      queryInputBox.value = startIssue;
+
+      // Submit for query.
+      const submitBtn = document.getElementById(
+        "Lotto649Control_history_btnSubmit"
+      );
+      submitBtn.click();
+      console.log("click");
+
       const test = document.getElementById(
         "Lotto649Control_history_dlQuery_L649_DrawTerm_0"
       ).textContent;
