@@ -6,7 +6,7 @@ const FILE = "./archived/taiwanLottery.csv";
 
 (async () => {
   try {
-    const browser = await puppeteer.launch({ headless: true }); // 使用 Headless Chrome
+    const browser = await puppeteer.launch({ headless: false }); // 使用有界面的 Chrome，以便觀察操作
     const page = await browser.newPage();
 
     const startIssue = 103000001;
@@ -18,24 +18,32 @@ const FILE = "./archived/taiwanLottery.csv";
     await page.goto(url);
     console.log("page.goto(url);");
 
+    // 等待元素出現並填寫表單
+    await page.waitForSelector("#Lotto649Control_history_txtNO");
+    await page.type("#Lotto649Control_history_txtNO", startIssue.toString());
+
+    // 點擊提交按鈕
+    await page.click("#Lotto649Control_history_btnSubmit");
+    console.log("click");
+
+    // Wait for the element to be visible
+    await page.waitFor(
+      () =>
+        !!document.querySelector(
+          "#Lotto649Control_history_dlQuery_L649_DrawTerm_0"
+        )
+    );
+
     const data = await page.evaluate(() => {
-      // Setup query historyNo.
-      const queryInputBox = document.getElementById(
-        "Lotto649Control_history_txtNO"
-      );
-      queryInputBox.value = startIssue;
-
-      // Submit for query.
-      const submitBtn = document.getElementById(
-        "Lotto649Control_history_btnSubmit"
-      );
-      submitBtn.click();
-      console.log("click");
-
-      const test = document.getElementById(
+      const testElement = document.getElementById(
         "Lotto649Control_history_dlQuery_L649_DrawTerm_0"
-      ).textContent;
-      return test;
+      );
+
+      if (testElement) {
+        return testElement.textContent;
+      } else {
+        return "Element not found";
+      }
     });
 
     console.log(`Test data result: ${data}`);
