@@ -24,7 +24,15 @@ pnpm i puppeteer
   - `const browser = await puppeteer.launch({ headless: false });`
   - Simulate and mimic human behavior.(ex: **scroll**, **wait**, **fill up** input box)
 
-### TODO
+### TODO:
+
+**taiwanLottery**
+
+- fix the `\n` inside the data.
+- loop the start ~ end data No for crawler.
+- Error handling: crawler crash, data missing, log history.
+
+**General**
 
 - Complete the guideline.
 - "News crawler" example need to supporter detecting the infinity scroll then crawl the element data.
