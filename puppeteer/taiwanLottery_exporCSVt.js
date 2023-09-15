@@ -16,7 +16,7 @@ const FILE = "./archived/taiwanLottery.csv";
 
     const url = `https://www.taiwanlottery.com.tw/Lotto/Lotto649/history.aspx`;
     await page.goto(url);
-    console.log("page.goto(url);");
+    console.info(`GoTo: ${url}`);
 
     // 等待元素出現並填寫表單
     await page.waitForSelector("#Lotto649Control_history_txtNO");
@@ -24,7 +24,7 @@ const FILE = "./archived/taiwanLottery.csv";
 
     // 點擊提交按鈕
     await page.click("#Lotto649Control_history_btnSubmit");
-    console.log("click");
+    console.info("submit_click");
 
     // Wait for the element to be visible
     await page.waitFor(
@@ -36,25 +36,51 @@ const FILE = "./archived/taiwanLottery.csv";
     );
 
     const data = await page.evaluate(() => {
-      const testElement = document.getElementById(
-        "Lotto649Control_history_dlQuery_L649_CategA5_0"
-      );
+      const term = document.getElementById(
+        // 期別
+        "Lotto649Control_history_dlQuery_L649_DrawTerm_0"
+      ).textContent;
 
-      if (testElement) {
-        return testElement.textContent;
-      } else {
-        return "Element not found";
+      const date = document.querySelector(
+        // 開獎日
+        "#Lotto649Control_history1_dlQuery_ctl00_L649_DDate"
+      ).textContent;
+
+      const firstPrize = document.getElementById(
+        // 頭獎
+        "Lotto649Control_history_dlQuery_L649_CategA5_0"
+      ).textContent;
+
+      const totalPrize = document.getElementById(
+        // 獎金總額
+        "Lotto649Control_history_dlQuery_Total_0"
+      ).textContent;
+
+      const numbers = [];
+      for (let i = 1; i <= 6; i++) {
+        const number = document.getElementById(
+          // 獎號
+          `Lotto649Control_history_dlQuery_No${i}_0`
+        ).textContent;
+        numbers.push(number);
       }
+
+      const specialNumber = document.getElementById(
+        // 特別號
+        "Lotto649Control_history_dlQuery_SNo_0"
+      ).textContent;
+
+      return [
+        term,
+        date,
+        firstPrize,
+        totalPrize,
+        numbers.toString(),
+        specialNumber,
+      ];
     });
 
-    console.log(`Test data result: ${data}`);
-    const dataArray = [
-      ["1", "2", "3", "4", "5", "6"],
-      ["11", "22", "33", "44", "55", "66"],
-    ]; // TODO: test data
-    // dataArray.push(data); // convert the data to array[].
-    console.log(`T  ${dataArray}`);
-
+    console.info(`Data_result: ${data}`);
     await browser.close();
 
     // Write the data to CSV file
@@ -75,9 +101,7 @@ const FILE = "./archived/taiwanLottery.csv";
     const writableStream = fs.createWriteStream(FILE, "utf-8");
     csvStream.pipe(writableStream); // 將CSV寫入流綁定到可寫流 and formate the header.
 
-    dataArray.forEach((data) => {
-      csvStream.write(data);
-    });
+    csvStream.write(data);
 
     csvStream.end();
 
