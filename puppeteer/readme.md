@@ -28,7 +28,6 @@ pnpm i puppeteer
 
 **taiwanLottery**
 
-- fix the `\n` inside the data.
 - loop the start ~ end data No for crawler.
 - Error handling: crawler crash, data missing, log history.
 

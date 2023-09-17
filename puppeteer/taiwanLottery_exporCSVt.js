@@ -41,10 +41,12 @@ const FILE = "./archived/taiwanLottery.csv";
         "Lotto649Control_history_dlQuery_L649_DrawTerm_0"
       ).textContent;
 
-      const date = document.querySelector(
-        // 開獎日
-        "#Lotto649Control_history1_dlQuery_ctl00_L649_DDate"
-      ).textContent;
+      const date = document
+        .querySelector(
+          // 開獎日
+          "#Lotto649Control_history1_dlQuery_ctl00_L649_DDate"
+        )
+        .textContent.replace(/[\n\s]/g, ""); // 資料有雜質
 
       const firstPrize = document.getElementById(
         // 頭獎
