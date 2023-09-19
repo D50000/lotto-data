@@ -8,82 +8,10 @@ const FILE = "./archived/taiwanLottery.csv";
   try {
     const browser = await puppeteer.launch({ headless: false }); // 使用有界面的 Chrome，以便觀察操作
     const page = await browser.newPage();
-
-    const startIssue = 103000001;
-    const endIssue = 103000005; // You can adjust this range as needed
-
-    const results = [];
-
+    // Setup
+    const startIssue = 103000001; // Adjust this range as needed.
+    const endIssue = 103000002;
     const url = `https://www.taiwanlottery.com.tw/Lotto/Lotto649/history.aspx`;
-    await page.goto(url);
-    console.info(`GoTo: ${url}`);
-
-    // 等待元素出現並填寫表單
-    await page.waitForSelector("#Lotto649Control_history_txtNO");
-    await page.type("#Lotto649Control_history_txtNO", startIssue.toString());
-
-    // 點擊提交按鈕
-    await page.click("#Lotto649Control_history_btnSubmit");
-    console.info("submit_click");
-
-    // Wait for the element to be visible
-    await page.waitFor(
-      () =>
-        !!document.querySelector(
-          // 等該期資料render完成
-          "#Lotto649Control_history_dlQuery_L649_DrawTerm_0"
-        )
-    );
-
-    const data = await page.evaluate(() => {
-      const term = document.getElementById(
-        // 期別
-        "Lotto649Control_history_dlQuery_L649_DrawTerm_0"
-      ).textContent;
-
-      const date = document
-        .querySelector(
-          // 開獎日
-          "#Lotto649Control_history1_dlQuery_ctl00_L649_DDate"
-        )
-        .textContent.replace(/[\n\s]/g, ""); // 資料有雜質
-
-      const firstPrize = document.getElementById(
-        // 頭獎
-        "Lotto649Control_history_dlQuery_L649_CategA5_0"
-      ).textContent;
-
-      const totalPrize = document.getElementById(
-        // 獎金總額
-        "Lotto649Control_history_dlQuery_Total_0"
-      ).textContent;
-
-      const numbers = [];
-      for (let i = 1; i <= 6; i++) {
-        const number = document.getElementById(
-          // 獎號
-          `Lotto649Control_history_dlQuery_No${i}_0`
-        ).textContent;
-        numbers.push(number);
-      }
-
-      const specialNumber = document.getElementById(
-        // 特別號
-        "Lotto649Control_history_dlQuery_SNo_0"
-      ).textContent;
-
-      return [
-        term,
-        date,
-        firstPrize,
-        totalPrize,
-        numbers.toString(),
-        specialNumber,
-      ];
-    });
-
-    console.info(`Data_result: ${data}`);
-    await browser.close();
 
     // Write the data to CSV file
     const csvStream = csv.format({
@@ -103,10 +31,80 @@ const FILE = "./archived/taiwanLottery.csv";
     const writableStream = fs.createWriteStream(FILE, "utf-8");
     csvStream.pipe(writableStream); // 將CSV寫入流綁定到可寫流 and formate the header.
 
-    csvStream.write(data);
+    for (let issue = startIssue; issue <= endIssue; issue++) {
+      await page.goto(url);
+      console.info(`GoTo: ${url}`);
+
+      // 等待元素出現並填寫表單
+      await page.waitForSelector("#Lotto649Control_history_txtNO");
+      await page.type("#Lotto649Control_history_txtNO", issue.toString());
+
+      // 點擊提交按鈕
+      await page.click("#Lotto649Control_history_btnSubmit");
+      console.info("submit_click");
+
+      // Wait for the element to be visible
+      await page.waitFor(
+        () =>
+          !!document.querySelector(
+            // 等該期資料render完成
+            "#Lotto649Control_history_dlQuery_L649_DrawTerm_0"
+          )
+      );
+
+      const data = await page.evaluate(() => {
+        const term = document.getElementById(
+          // 期別
+          "Lotto649Control_history_dlQuery_L649_DrawTerm_0"
+        ).textContent;
+
+        const date = document
+          .querySelector(
+            // 開獎日
+            "#Lotto649Control_history1_dlQuery_ctl00_L649_DDate"
+          )
+          .textContent.replace(/[\n\s]/g, ""); // 資料有雜質
+
+        const firstPrize = document.getElementById(
+          // 頭獎
+          "Lotto649Control_history_dlQuery_L649_CategA5_0"
+        ).textContent;
+
+        const totalPrize = document.getElementById(
+          // 獎金總額
+          "Lotto649Control_history_dlQuery_Total_0"
+        ).textContent;
+
+        const numbers = [];
+        for (let i = 1; i <= 6; i++) {
+          const number = document.getElementById(
+            // 獎號
+            `Lotto649Control_history_dlQuery_No${i}_0`
+          ).textContent;
+          numbers.push(number);
+        }
+
+        const specialNumber = document.getElementById(
+          // 特別號
+          "Lotto649Control_history_dlQuery_SNo_0"
+        ).textContent;
+
+        return [
+          term,
+          date,
+          firstPrize,
+          totalPrize,
+          numbers.toString(),
+          specialNumber,
+        ];
+      });
+
+      console.info(`Data_result: ${data}`);
+      csvStream.write(data);
+    }
 
     csvStream.end();
-
+    await browser.close();
     console.log("History data has been saved to", FILE);
   } catch (error) {
     console.error("An error occurred:", error);
