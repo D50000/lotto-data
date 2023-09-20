@@ -28,8 +28,8 @@ pnpm i puppeteer
 
 **taiwanLottery**
 
-- loop the start ~ end data No for crawler.
 - Error handling: crawler crash, data missing, log history.
+- Sometime it still crash when executing, maybe server detect the crawler.
 
 **General**
 
