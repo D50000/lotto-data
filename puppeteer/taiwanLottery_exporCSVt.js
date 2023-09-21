@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 const fs = require("fs");
 const csv = require("fast-csv");
 
-const FILE = "./archived/taiwanLottery.csv";
+const FILE = "./archived/taiwanLottery_103.csv";
 
 (async () => {
   try {
@@ -10,7 +10,7 @@ const FILE = "./archived/taiwanLottery.csv";
     const page = await browser.newPage();
     // Setup
     const startIssue = 103000001; // Adjust this range as needed.
-    const endIssue = 103000002;
+    const endIssue = 103000108;
     const url = `https://www.taiwanlottery.com.tw/Lotto/Lotto649/history.aspx`;
 
     // Write the data to CSV file
@@ -51,6 +51,10 @@ const FILE = "./archived/taiwanLottery.csv";
             "#Lotto649Control_history_dlQuery_L649_DrawTerm_0"
           )
       );
+      // Wait 5s more to avoid 'crawler blocker'.
+      setTimeout(() => {
+        console.log("Waited for 5 seconds");
+      }, 5000); // 5000毫秒 = 5秒
 
       const data = await page.evaluate(() => {
         const term = document.getElementById(
