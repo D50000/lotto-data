@@ -23,6 +23,10 @@ pnpm i puppeteer
   This domain has the anti-crawler detector. Need to go through it.
   - `const browser = await puppeteer.launch({ headless: false });`
   - Simulate and mimic human behavior.(ex: **scroll**, **wait**, **fill up** input box)
+  - Every query need to wait **5s** to perfectly avoid _crawler blocker_.
+- How to use:
+  1. Setup **startIssue** & **endIssue** and output file path.
+  2. Use **node** to run the script.
 
 ### TODO:
 
