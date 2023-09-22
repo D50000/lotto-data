@@ -2,22 +2,22 @@ const puppeteer = require("puppeteer");
 const fs = require("fs");
 const csv = require("fast-csv");
 
-const FILE = "./archived/taiwanLottery_104.csv";
+const FILE = "./archived/taiwanLottery_105.csv";
 
 (async () => {
   try {
     const browser = await puppeteer.launch({ headless: false }); // 使用有界面的 Chrome，以便觀察操作
     const page = await browser.newPage();
     // Setup
-    const startIssue = 104000001; 
-    const endIssue = 104000109; // Adjust this range as needed.
+    const startIssue = 103000001; 
+    const endIssue = 103000108; // Adjust this range as needed.
     const url = `https://www.taiwanlottery.com.tw/Lotto/Lotto649/history.aspx`;
 
     // Write the data to CSV file
     const csvStream = csv.format({
       // 期別 Lotto649Control_history_dlQuery_L649_DrawTerm_0
       // 開獎日 Lotto649Control_history1_dlQuery_ctl00_L649_DDate
-      // 頭獎 Lotto649Control_history_dlQuery_L649_CategA5_0
+      // 頭獎 Lotto649Control_history_dlQuery_L649_CategA4_0
       // 獎金總額 Lotto649Control_history_dlQuery_Total_0
       // 獎號 Lotto649Control_history_dlQuery_No1_0,
       //     Lotto649Control_history_dlQuery_No2_0
@@ -33,7 +33,7 @@ const FILE = "./archived/taiwanLottery_104.csv";
 
     for (let issue = startIssue; issue <= endIssue; issue++) {
       await page.goto(url);
-      console.info(`GoTo: ${url}`);
+      console.info(`===== Start GoTo: ${url} =====`);
 
       // 等待元素出現並填寫表單
       await page.waitForSelector("#Lotto649Control_history_txtNO");
@@ -51,10 +51,10 @@ const FILE = "./archived/taiwanLottery_104.csv";
             "#Lotto649Control_history_dlQuery_L649_DrawTerm_0"
           )
       );
-      // Wait 5s more to avoid 'crawler blocker'.
+      // Wait 8s more to avoid 'crawler blocker'.
       setTimeout(() => {
         console.log("Waited for 5 seconds");
-      }, 5000); // 5000毫秒 = 5秒
+      }, 8000); // 8秒
 
       const data = await page.evaluate(() => {
         const term = document.getElementById(
@@ -71,7 +71,7 @@ const FILE = "./archived/taiwanLottery_104.csv";
 
         const firstPrize = document.getElementById(
           // 頭獎
-          "Lotto649Control_history_dlQuery_L649_CategA5_0"
+          "Lotto649Control_history_dlQuery_L649_CategA4_0"
         ).textContent;
 
         const totalPrize = document.getElementById(
