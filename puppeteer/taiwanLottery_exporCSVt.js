@@ -2,15 +2,15 @@ const puppeteer = require("puppeteer");
 const fs = require("fs");
 const csv = require("fast-csv");
 
-const FILE = "./archived/taiwanLottery_103.csv";
+const FILE = "./archived/taiwanLottery_104.csv";
 
 (async () => {
   try {
     const browser = await puppeteer.launch({ headless: false }); // 使用有界面的 Chrome，以便觀察操作
     const page = await browser.newPage();
     // Setup
-    const startIssue = 103000001; // Adjust this range as needed.
-    const endIssue = 103000108;
+    const startIssue = 104000001; 
+    const endIssue = 104000109; // Adjust this range as needed.
     const url = `https://www.taiwanlottery.com.tw/Lotto/Lotto649/history.aspx`;
 
     // Write the data to CSV file
