@@ -2,14 +2,14 @@ const puppeteer = require("puppeteer");
 const fs = require("fs");
 const csv = require("fast-csv");
 
-const FILE = "./archived/taiwanLottery_105.csv";
+const FILE = "./archived/taiwanLottery_104.csv";
 
 (async () => {
   try {
     const browser = await puppeteer.launch({ headless: false }); // 使用有界面的 Chrome，以便觀察操作
     const page = await browser.newPage();
     // Setup
-    const startIssue = 103000001; 
+    const startIssue = 104000001; 
     const endIssue = 103000108; // Adjust this range as needed.
     const url = `https://www.taiwanlottery.com.tw/Lotto/Lotto649/history.aspx`;
 
@@ -51,10 +51,10 @@ const FILE = "./archived/taiwanLottery_105.csv";
             "#Lotto649Control_history_dlQuery_L649_DrawTerm_0"
           )
       );
-      // Wait 8s more to avoid 'crawler blocker'.
+      // Wait 10s more to avoid 'crawler blocker'.
       setTimeout(() => {
-        console.log("Waited for 5 seconds");
-      }, 8000); // 8秒
+        console.log("Waited for 10 seconds");
+      }, 10000); // 10秒
 
       const data = await page.evaluate(() => {
         const term = document.getElementById(
