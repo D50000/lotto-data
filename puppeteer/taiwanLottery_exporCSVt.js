@@ -10,7 +10,7 @@ const FILE = "./archived/taiwanLottery_112.csv";
     const page = await browser.newPage();
     // Setup
     const startIssue = 112000001;
-    const endIssue = 112000091; // Adjust this range as needed.
+    const endIssue = 112000101; // Adjust this range as needed.
     const url = `https://www.taiwanlottery.com.tw/Lotto/Lotto649/history.aspx`;
 
     // Write the data to CSV file
