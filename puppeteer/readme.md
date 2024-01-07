@@ -34,7 +34,7 @@ pnpm i puppeteer
 
 - Error handling: crawler crash, data missing, log history.
 - Sometime it still crash when executing, maybe server detect the crawler.
-- 112y record data just supply to *no:112000101*.
+- 112y record data just supply to *no:112000116*. (Website update no more history query, just provide download pdf result. Need to manually maintain 112/12 result.)
 
 **General**
 
