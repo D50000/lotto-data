@@ -17,16 +17,16 @@ pnpm i puppeteer
 
 ## Example-Template
 
-- yahooNewsHeadlines_exportCSV:
+- How to use:
+  1. Setup **startIssue** & **endIssue** and output file path.
+  2. Use **node** to run the script.
+- **yahooNewsHeadlines_exportCSV**:
   Crawling **Yahoo News** headlines' photos and titles.Then save it into csv files.
-- taiwanLottery112_exportCSV (deprecated):
+- **taiwanLottery112_exportCSV**: (deprecated)
   This domain has the anti-crawler detector. Need to go through it.
   - `const browser = await puppeteer.launch({ headless: false });`
   - Simulate and mimic human behavior.(ex: **scroll**, **wait**, **fill up** input box)
   - Every query need to wait **10s** to perfectly avoid _crawler blocker_. (ps:Just run the script once per hour)
-- How to use:
-  1. Setup **startIssue** & **endIssue** and output file path.
-  2. Use **node** to run the script.
 
 ### TODO:
 
@@ -34,7 +34,7 @@ pnpm i puppeteer
 
 - Error handling: crawler crash, data missing, log history.
 - Sometime it still crash when executing, maybe server detect the crawler.
-- 112y record data just supply to *no:112000116*. (Website update no more history query, just provide download pdf result. Need to manually maintain 112/12 result.)
+- 112y record data just supply to _no:112000116_. (Website update no more history query, just provide download pdf result. Need to manually maintain 112/12 result.)
 
 **General**
 
