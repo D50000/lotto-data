@@ -19,7 +19,7 @@ pnpm i puppeteer
 
 - yahooNewsHeadlines_exportCSV:
   Crawling **Yahoo News** headlines' photos and titles.Then save it into csv files.
-- taiwanLottery_exportCSV:
+- taiwanLottery112_exportCSV (deprecated):
   This domain has the anti-crawler detector. Need to go through it.
   - `const browser = await puppeteer.launch({ headless: false });`
   - Simulate and mimic human behavior.(ex: **scroll**, **wait**, **fill up** input box)
